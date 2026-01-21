@@ -33,16 +33,18 @@ function normalizePageKey(raw) {
 }
 
 function setActivePage(pageKey) {
-  for (let i = 0; i < pages.length; i++) {
-    if (pageKey === pages[i].dataset.page) {
-      pages[i].classList.add("active");
-      navigationLinks[i].classList.add("active");
-      window.scrollTo(0, 0);
-    } else {
-      pages[i].classList.remove("active");
-      navigationLinks[i].classList.remove("active");
-    }
-  }
+  // 1) Toggle pages by data-page match
+  pages.forEach(page => {
+    page.classList.toggle("active", page.dataset.page === pageKey);
+  });
+
+  // 2) Toggle nav links by their text -> pageKey
+  navigationLinks.forEach(link => {
+    const key = normalizePageKey(link.textContent);
+    link.classList.toggle("active", key === pageKey);
+  });
+
+  window.scrollTo(0, 0);
 }
 
 function loadFromHash() {
