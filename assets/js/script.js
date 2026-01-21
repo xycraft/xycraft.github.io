@@ -73,3 +73,5 @@ for (let i = 0; i < navigationLinks.length; i++) {
 // deep link on load + support back/forward
 window.addEventListener("DOMContentLoaded", loadFromHash);
 window.addEventListener("hashchange", loadFromHash);
+
+loadFromHash();
